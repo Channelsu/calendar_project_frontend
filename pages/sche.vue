@@ -109,6 +109,9 @@
 import ScheForm from '~/components/sche/ScheForm.vue'
 
 export default {
+  // ヘッダーの種類記述（指定がない時はlayouts/default.vueが適応される）
+  layout: 'hd_general',
+
   component: {
     ScheForm,
   },
