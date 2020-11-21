@@ -9,12 +9,13 @@
           <v-btn fab text small color="grey darken-2" @click="prev">
             <v-icon small> mdi-chevron-left </v-icon>
           </v-btn>
+          <v-toolbar-title v-if="$refs.calendar">
+            <!-- {{ $refs.calendar.title }} -->
+            {{ yearMonth }}
+          </v-toolbar-title>
           <v-btn fab text small color="grey darken-2" @click="next">
             <v-icon small> mdi-chevron-right </v-icon>
           </v-btn>
-          <v-toolbar-title v-if="$refs.calendar">
-            {{ $refs.calendar.title }}
-          </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn
             dark
@@ -149,6 +150,11 @@ export default {
       ],
     }
   },
+  computed: {
+    yearMonth() {
+      return this.fmtYearMonth(this.$refs.calendar.title)
+    },
+  },
   mounted() {
     this.$refs.calendar.checkChange()
   },
@@ -156,6 +162,10 @@ export default {
     init() {
       // バックエンドから予定のデータを取得する処理を記述
       this.$refs.calendar.checkChange()
+    },
+    fmtYearMonth(ym) {
+      const [month, year] = ym.split(' ')
+      return `${year}年 ${month}`
     },
     viewDay({ date }) {
       this.focus = date
