@@ -1,11 +1,15 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12">
-      <p>トップページ</p>
-      <p>ログインしていない時のヘッダーを用意</p>
-      <v-btn dark depressed color="blue" @click="toLogin">ログイン</v-btn>
-    </v-col>
-  </v-row>
+  <v-app>
+    <v-row justify="center" align-content="center" no-gutters>
+      <v-col cols="12">
+        <div class="text-center">
+          <p>トップページ</p>
+          <p>シェアスケジュール</p>
+          <v-btn dark depressed color="blue" @click="toLogin">ログイン</v-btn>
+        </div>
+      </v-col>
+    </v-row>
+  </v-app>
 </template>
 
 <script>
