@@ -99,7 +99,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'スケジュール共有アプリ',
+      title: 'シェアスケジュール',
     }
   },
 }
