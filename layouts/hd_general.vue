@@ -59,6 +59,11 @@ export default {
           title: '設定',
           to: '/settings',
         },
+        {
+          icon: 'mdi-logout',
+          title: 'ログアウト',
+          to: '/',
+        },
       ],
       right: true,
       title: 'シェアスケジュール',
