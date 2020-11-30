@@ -237,12 +237,26 @@ export default {
     valiForm() {
       alert('バリデーション実行')
     },
-    postForm() {
-      alert('予定を追加しました')
-      this.$refs.scheForm.reset()
-      this.$emit('init')
-      this.$emit('closeForm')
+
+    // 予定ポスト処理
+    async postForm() {
+      const postItem = this.scheForm
+      const response = await this.$axios
+        .$post('/testpost', postItem)
+        .then((response) => {
+          console.log('response data', response.object)
+          alert('予定を追加しました')
+          this.$refs.scheForm.reset()
+          this.$emit('init')
+          this.$emit('closeForm')
+        })
+        .catch((error) => {
+          console.log('response error', error)
+        })
+      console.log('response→', response)
     },
+
+    // フォームを閉じる処理
     closeForm() {
       this.$emit('closeForm')
     },
