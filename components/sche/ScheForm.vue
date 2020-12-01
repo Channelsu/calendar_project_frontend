@@ -155,7 +155,14 @@
           </v-menu>
           <!-- 終了時間入力欄 ここまで -->
           <!-- スケジュールバーの色 -->
-          <p>スケジュールバーの色選択（セレクトボックス）</p>
+          <v-select
+            v-model="scheForm.barColor"
+            :items="colors"
+            item-text="label"
+            item-value="val"
+            label="バーの色"
+          >
+          </v-select>
           <!-- スケジュールバーの色 ここまで -->
           <!-- 備考入力欄 -->
           <v-textarea
@@ -203,8 +210,16 @@ export default {
         endDate: '',
         endTimeMenu: false,
         endTime: '',
+        barColor: '',
         remark: '',
       },
+      colors: [
+        { label: '赤', val: 'red' },
+        { label: '青', val: 'blue' },
+        { label: '緑', val: 'green' },
+        { label: '紫', val: 'purple' },
+        { label: 'ピンク', val: 'pink' },
+      ],
     }
   },
   computed: {
