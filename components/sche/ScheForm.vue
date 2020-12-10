@@ -255,9 +255,17 @@ export default {
 
     // 予定ポスト処理
     async postForm() {
-      const postItem = this.scheForm
+      const postObj = {
+        title: this.scheForm.title,
+        startDate: this.scheForm.startDate,
+        startTime: this.scheForm.startTime,
+        endDate: this.scheForm.endDate,
+        endTime: this.scheForm.endTime,
+        barColor: this.scheForm.barColor,
+        remark: this.scheForm.remark,
+      }
       const response = await this.$axios
-        .$post('/testpost', postItem)
+        .$post('/testpost', postObj)
         .then((response) => {
           console.log('response data', response.object)
           alert('予定を追加しました')
