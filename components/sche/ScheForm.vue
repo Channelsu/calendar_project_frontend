@@ -195,8 +195,13 @@
 </template>
 
 <script>
+import rules from '@/mixins/rules.js'
+
 export default {
   props: { formOpenBySche: Boolean },
+
+  mixins: [rules],
+
   data() {
     return {
       scheForm: {
