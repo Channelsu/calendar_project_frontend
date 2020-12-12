@@ -1,10 +1,14 @@
 <template>
-  <v-dialog v-model="formOpenBySche" max-width="420" @click:outside="closeForm">
+  <v-dialog
+    v-model="formOpenBySche"
+    max-width="420"
+    @click:outside="closeForm()"
+  >
     <v-form
       ref="scheForm"
       v-model="scheForm.valid"
       lazy-validation
-      @submit.prevent="postForm"
+      @submit.prevent="postForm()"
     >
       <v-card>
         <v-row justify="center">
@@ -179,16 +183,25 @@
           <v-row justify="center" class="mb-5">
             <v-btn
               class="mr-2"
-              color="blue"
+              color="blue white--text"
               type="submit"
-              dark
-              @click="valiForm"
+              :disabled="!scheForm.valid"
+              @click="valiForm()"
             >
               登録
             </v-btn>
-            <v-btn class="ml-2" color="error" dark @click="closeForm">
+            <v-btn class="ml-2" color="error white--text" @click="closeForm()">
               閉じる
             </v-btn>
+            <!-- フォーム入力エラーメッセージ -->
+            <div class="text-center">
+              <span
+                v-show="!scheForm.valid"
+                class="red--text subtitle-1 font-weight-bold"
+                >※入力に不備があるので確認して下さい</span
+              >
+            </div>
+            <!-- フォーム入力エラーメッセージ ここまで -->
           </v-row>
         </v-card-actions>
       </v-card>
@@ -200,13 +213,14 @@
 import rules from '@/mixins/rules.js'
 
 export default {
-  props: { formOpenBySche: Boolean },
-
   mixins: [rules],
+
+  props: { formOpenBySche: Boolean },
 
   data() {
     return {
       scheForm: {
+        // フォームの項目に不備がないかの有効性を判断
         valid: true,
         title: '',
         startDateMenu: false,
@@ -235,18 +249,20 @@ export default {
     // },
   },
   methods: {
+    // 日本語入力中のEnterキー操作は無効にする
     trigger: (e) => {
-      // 日本語入力中のEnterキー操作は無効にする
       if (e.keyCode === 13) {
         e.preventDefault()
       }
     },
+
     insToday(typeOfVar) {
       const today = new Date().toISOString().substr(0, 10)
       typeOfVar === 'start'
         ? (this.scheForm.startDate = today)
         : (this.scheForm.endDate = today)
     },
+
     insTomorrow(typeOfVar) {
       const today = new Date()
       // 本日の日付に一日加える
@@ -256,8 +272,10 @@ export default {
         ? (this.scheForm.startDate = tomorrow)
         : (this.scheForm.endDate = tomorrow)
     },
+
+    // 登録ボタン押下時のバリデーション処理
     valiForm() {
-      alert('バリデーション実行')
+      this.$refs.scheForm.validate()
     },
 
     // 予定ポスト処理
@@ -278,7 +296,7 @@ export default {
           alert('予定を追加しました')
           this.$refs.scheForm.reset()
           this.$emit('init')
-          this.$emit('closeForm')
+          this.closeForm()
         })
         .catch((error) => {
           console.log('response error', error)
