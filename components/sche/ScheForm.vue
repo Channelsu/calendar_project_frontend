@@ -14,6 +14,7 @@
           <!-- タイトル入力欄 -->
           <v-text-field
             v-model="scheForm.title"
+            :rules="[rules.required, rules.notOnlySpace]"
             :counter="64"
             label="タイトル"
             @keydown.enter="trigger"
@@ -167,6 +168,7 @@
           <!-- 備考入力欄 -->
           <v-textarea
             v-model="scheForm.remark"
+            :rules="[rules.notOnlySpace]"
             auto-grow
             label="備考"
             rows="4"
