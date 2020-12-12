@@ -162,6 +162,7 @@
           <!-- スケジュールバーの色 -->
           <v-select
             v-model="scheForm.barColor"
+            :rules="[rules.required]"
             :items="colors"
             item-text="label"
             item-value="val"
