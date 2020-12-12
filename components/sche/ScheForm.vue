@@ -36,6 +36,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="scheForm.startDate"
+                :rules="[rules.required]"
                 label="開始日"
                 append-icon="mdi-calendar"
                 v-bind="attrs"
@@ -74,6 +75,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="scheForm.startTime"
+                :rules="[rules.required]"
                 label="開始時間"
                 append-icon="mdi-clock-time-four-outline"
                 readonly
@@ -103,6 +105,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="scheForm.endDate"
+                :rules="[rules.required]"
                 label="終了日"
                 append-icon="mdi-calendar"
                 v-bind="attrs"
@@ -141,6 +144,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="scheForm.endTime"
+                :rules="[rules.required]"
                 label="終了時間"
                 append-icon="mdi-clock-time-four-outline"
                 readonly
