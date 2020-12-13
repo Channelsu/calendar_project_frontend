@@ -286,12 +286,14 @@ export default {
 
     // 予定ポスト処理
     async postForm() {
+      const fmtedStartTime = this.$fmtTime(this.scheForm.startTime)
+      const fmtedEndTime = this.$fmtTime(this.scheForm.endTime)
       const postObj = {
         title: this.scheForm.title,
         startDate: this.scheForm.startDate,
-        startTime: this.scheForm.startTime,
+        startTime: fmtedStartTime,
         endDate: this.scheForm.endDate,
-        endTime: this.scheForm.endTime,
+        endTime: fmtedEndTime,
         barColor: this.scheForm.barColor,
         remark: this.scheForm.remark,
       }
