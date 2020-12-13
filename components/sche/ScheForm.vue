@@ -207,6 +207,7 @@
               >
             </div>
             <!-- フォーム入力エラーメッセージ ここまで -->
+            {{ scheForm }}
           </v-row>
         </v-card-actions>
       </v-card>
