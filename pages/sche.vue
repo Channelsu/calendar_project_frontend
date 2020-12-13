@@ -173,6 +173,10 @@ export default {
           console.log('response.object', response.object)
           const sches = response.object
           const fmtedSches = sches.map((sche) => {
+            // 日付の値を整形
+            sche.startDate = this.$fmtDate(sche.startDate)
+            sche.endDate = this.$fmtDate(sche.endDate)
+            // 時間の値を整形
             sche.startTime = this.$fmtTime(sche.startTime)
             sche.endTime = this.$fmtTime(sche.endTime)
             return sche
