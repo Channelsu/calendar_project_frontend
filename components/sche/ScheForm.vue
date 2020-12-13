@@ -286,13 +286,18 @@ export default {
 
     // 予定ポスト処理
     async postForm() {
+      // 日付の値を整形
+      const fmtedStartDate = this.$fmtDate(this.scheForm.startDate)
+      const fmtedEndDate = this.$fmtDate(this.scheForm.endDate)
+      // 時間の値を整形
       const fmtedStartTime = this.$fmtTime(this.scheForm.startTime)
       const fmtedEndTime = this.$fmtTime(this.scheForm.endTime)
+      // ポストするオブジェクトの作成
       const postObj = {
         title: this.scheForm.title,
-        startDate: this.scheForm.startDate,
+        startDate: fmtedStartDate,
         startTime: fmtedStartTime,
-        endDate: this.scheForm.endDate,
+        endDate: fmtedEndDate,
         endTime: fmtedEndTime,
         barColor: this.scheForm.barColor,
         remark: this.scheForm.remark,
