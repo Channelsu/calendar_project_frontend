@@ -172,21 +172,27 @@ export default {
         .then((response) => {
           console.log('response.object', response.object)
           const sches = response.object
-          const fmtedSches = sches.map((sche) => {
-            // 日付の値を整形
-            sche.startDate = this.$fmtDate(sche.startDate)
-            sche.endDate = this.$fmtDate(sche.endDate)
-            // 時間の値を整形
-            sche.startTime = this.$fmtTime(sche.startTime)
-            sche.endTime = this.$fmtTime(sche.endTime)
-            return sche
-          })
+          const fmtedSches = this.fmtSches(sches)
           console.log('fmtedSches', fmtedSches)
         })
         .catch((error) => {
           console.log('response error', error)
         })
       console.log('response→', response)
+    },
+
+    // スケジュールデータの各値を整形するメソッド
+    fmtSches(sches) {
+      const fmtedSches = sches.map((sche) => {
+        // 日付の値を整形
+        sche.startDate = this.$fmtDate(sche.startDate)
+        sche.endDate = this.$fmtDate(sche.endDate)
+        // 時間の値を整形
+        sche.startTime = this.$fmtTime(sche.startTime)
+        sche.endTime = this.$fmtTime(sche.endTime)
+        return sche
+      })
+      return fmtedSches
     },
 
     fmtYearMonth(ym) {
