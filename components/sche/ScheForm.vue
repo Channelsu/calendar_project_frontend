@@ -295,7 +295,7 @@ export default {
         remark: this.scheForm.remark,
       }
       const response = await this.$axios
-        .$post('/testpost', postObj)
+        .$post('/ins', postObj)
         .then((response) => {
           console.log('response data', response.object)
           alert('予定を追加しました')

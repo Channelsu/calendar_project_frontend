@@ -93,8 +93,8 @@
         <v-row justify="center">
           <ScheForm
             :form-open-by-sche="formOpen"
-            @init="init"
-            @closeForm="closeForm"
+            @init="init()"
+            @closeForm="closeForm()"
           >
           </ScheForm>
         </v-row>
@@ -157,12 +157,27 @@ export default {
   },
   mounted() {
     this.$refs.calendar.checkChange()
+    this.getSches()
   },
   methods: {
+    // バックエンドから予定のデータを取得する処理
     init() {
-      // バックエンドから予定のデータを取得する処理を記述
       this.$refs.calendar.checkChange()
     },
+
+    // バックエンドから予定のデータを取得する処理
+    async getSches() {
+      const response = await this.$axios
+        .$get('/sches')
+        .then((response) => {
+          console.log('response.object', response.object)
+        })
+        .catch((error) => {
+          console.log('response error', error)
+        })
+      console.log('response→', response)
+    },
+
     fmtYearMonth(ym) {
       const [month, year] = ym.split(' ')
       return `${year}年 ${month}`
