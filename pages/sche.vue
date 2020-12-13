@@ -171,6 +171,13 @@ export default {
         .$get('/sches')
         .then((response) => {
           console.log('response.object', response.object)
+          const sches = response.object
+          const fmtedSches = sches.map((sche) => {
+            sche.startTime = this.$fmtTime(sche.startTime)
+            sche.endTime = this.$fmtTime(sche.endTime)
+            return sche
+          })
+          console.log('fmtedSches', fmtedSches)
         })
         .catch((error) => {
           console.log('response error', error)
@@ -239,7 +246,6 @@ export default {
           timed: !allDay,
         })
       }
-
       this.events = events
     },
     rnd(a, b) {
