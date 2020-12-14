@@ -52,7 +52,7 @@
           v-model="focus"
           color="primary"
           :events="events"
-          :event-color="getEventColor"
+          :event-color="getBarColor"
           :type="type"
           @click:event="showEvent"
           @click:more="viewDay"
@@ -66,7 +66,7 @@
           offset-x
         >
           <v-card color="grey lighten-4" min-width="350px" flat>
-            <v-toolbar :color="selectedEvent.color" dark>
+            <v-toolbar :color="selectedEvent.barColor" dark>
               <v-btn icon>
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
@@ -129,7 +129,7 @@ export default {
       formOpen: false,
       selectedOpen: false,
       events: [],
-      colors: [
+      barColors: [
         'blue',
         'indigo',
         'deep-purple',
@@ -157,7 +157,7 @@ export default {
   },
   mounted() {
     this.$refs.calendar.checkChange()
-    this.getSches()
+    // this.getSches()
   },
   methods: {
     // バックエンドから予定のデータを取得する処理
@@ -165,7 +165,7 @@ export default {
       this.$refs.calendar.checkChange()
     },
 
-    // バックエンドから予定のデータを取得する処理
+    // バックエンドから予定のデータを取得し、フォーマットしてスケジュール配列を返すメソッド
     async getSches() {
       const response = await this.$axios
         .$get('/sches')
@@ -174,22 +174,35 @@ export default {
           const sches = response.object
           const fmtedSches = this.fmtSches(sches)
           console.log('fmtedSches', fmtedSches)
+          return fmtedSches
+          // this.events = fmtedSches
         })
         .catch((error) => {
-          console.log('response error', error)
+          console.log('※※※ get sches response error ※※※')
+          if (error.response) {
+            console.log('the contents of error→', error.response)
+          }
+          return []
         })
       console.log('response→', response)
+      return response
     },
 
     // スケジュールデータの各値を整形するメソッド
     fmtSches(sches) {
       const fmtedSches = sches.map((sche) => {
         // 日付の値を整形
-        sche.startDate = this.$fmtDate(sche.startDate)
-        sche.endDate = this.$fmtDate(sche.endDate)
+        sche.start_date = this.$fmtDate(sche.start_date)
+        sche.end_date = this.$fmtDate(sche.end_date)
         // 時間の値を整形
-        sche.startTime = this.$fmtTime(sche.startTime)
-        sche.endTime = this.$fmtTime(sche.endTime)
+        sche.start_time = this.$fmtTime(sche.start_time)
+        sche.end_time = this.$fmtTime(sche.end_time)
+        // カレンダーに表示させるためのプロパティをセット
+        sche.name = sche.title
+        sche.start = `${sche.start_date} ${sche.start_time}`
+        sche.end = `${sche.end_date} ${sche.end_time}`
+        // sche.timed = !allDay
+        // console.log('sche→', sche)
         return sche
       })
       return fmtedSches
@@ -199,22 +212,28 @@ export default {
       const [month, year] = ym.split(' ')
       return `${year}年 ${month}`
     },
+
     viewDay({ date }) {
       this.focus = date
       this.type = 'day'
     },
-    getEventColor(event) {
-      return event.color
+
+    getBarColor(event) {
+      return event.bar_color
     },
-    setToday() {
+
+    setToday(event) {
       this.focus = ''
     },
+
     prev() {
       this.$refs.calendar.prev()
     },
+
     next() {
       this.$refs.calendar.next()
     },
+
     showEvent({ nativeEvent, event }) {
       const open = () => {
         this.selectedEvent = event
@@ -233,8 +252,11 @@ export default {
 
       nativeEvent.stopPropagation()
     },
-    updateRange({ start, end }) {
+
+    async updateRange({ start, end }) {
       const events = []
+      const sches = await this.getSches()
+      console.log('sches→', sches)
 
       const min = new Date(`${start.date}T00:00:00`)
       const max = new Date(`${end.date}T23:59:59`)
@@ -252,15 +274,18 @@ export default {
           name: this.names[this.rnd(0, this.names.length - 1)],
           start: first,
           end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
+          barColor: this.barColors[this.rnd(0, this.barColors.length - 1)],
           timed: !allDay,
         })
       }
-      this.events = events
+      // this.events = events
+      this.events = sches
     },
+
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a
     },
+
     closeForm() {
       this.formOpen = false
     },
