@@ -295,11 +295,11 @@ export default {
       // ポストするオブジェクトの作成
       const postObj = {
         title: this.scheForm.title,
-        startDate: fmtedStartDate,
-        startTime: fmtedStartTime,
-        endDate: fmtedEndDate,
-        endTime: fmtedEndTime,
-        barColor: this.scheForm.barColor,
+        start_date: fmtedStartDate,
+        start_time: fmtedStartTime,
+        end_date: fmtedEndDate,
+        end_time: fmtedEndTime,
+        bar_color: this.scheForm.barColor,
         remark: this.scheForm.remark,
       }
       const response = await this.$axios
