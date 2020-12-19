@@ -211,18 +211,18 @@ export default {
     // スケジュールデータの各値を整形するメソッド
     fmtSches(sches) {
       const fmtedSches = sches.map((sche) => {
+        // console.log('sche→', sche)
         // 日付の値を整形
-        sche.start_date = this.$fmtDate(sche.start_date)
-        sche.end_date = this.$fmtDate(sche.end_date)
+        sche.startDate = this.$fmtDate(sche.startDate)
+        sche.endDate = this.$fmtDate(sche.endDate)
         // 時間の値を整形
-        sche.start_time = this.$fmtTime(sche.start_time)
-        sche.end_time = this.$fmtTime(sche.end_time)
+        sche.startTime = this.$fmtTime(sche.startTime)
+        sche.endTime = this.$fmtTime(sche.endTime)
         // カレンダーに表示させるためのプロパティをセット
         sche.name = sche.title
-        sche.start = `${sche.start_date} ${sche.start_time}`
-        sche.end = `${sche.end_date} ${sche.end_time}`
+        sche.start = `${sche.startDate} ${sche.startTime}`
+        sche.end = `${sche.endDate} ${sche.endTime}`
         // sche.timed = !allDay
-        // console.log('sche→', sche)
         return sche
       })
       return fmtedSches
@@ -239,7 +239,7 @@ export default {
     },
 
     getBarColor(event) {
-      return event.bar_color
+      return event.barColor
     },
 
     setToday(event) {
