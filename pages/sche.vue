@@ -89,16 +89,16 @@
             </v-card-actions>
           </v-card>
         </v-menu>
-        <!-- フォーム -->
+        <!-- 追加フォーム -->
         <v-row justify="center">
           <ScheForm
             :form-open-by-sche="formOpen"
-            @init="init()"
+            @updateCalendar="updateCalendar()"
             @closeForm="closeForm()"
           >
           </ScheForm>
         </v-row>
-        <!-- フォーム ここまで -->
+        <!-- 追加フォーム ここまで -->
       </v-sheet>
     </v-col>
   </v-row>
@@ -128,6 +128,8 @@ export default {
       selectedElement: null,
       formOpen: false,
       selectedOpen: false,
+      startDateInfo: null,
+      endDateInfo: null,
       events: [],
       barColors: [
         'blue',
@@ -157,13 +159,21 @@ export default {
   },
   mounted() {
     this.$refs.calendar.checkChange()
-    // this.getSches()
   },
   methods: {
     // バックエンドから予定のデータを取得する処理
-    init() {
-      this.$refs.calendar.checkChange()
+    updateCalendar() {
+      const obj = {
+        start: this.startDateInfo,
+        end: this.endDateInfo,
+      }
+      this.updateRange(obj)
     },
+
+    // イベント名の時間「○○時」を「○○：○○」に変更する
+    // eventNameFmt() {
+
+    // },
 
     // バックエンドから予定のデータを取得し、フォーマットしてスケジュール配列を返すメソッド
     async getSches() {
@@ -175,7 +185,6 @@ export default {
           const fmtedSches = this.fmtSches(sches)
           console.log('fmtedSches', fmtedSches)
           return fmtedSches
-          // this.events = fmtedSches
         })
         .catch((error) => {
           console.log('※※※ get sches response error ※※※')
@@ -254,32 +263,34 @@ export default {
     },
 
     async updateRange({ start, end }) {
-      const events = []
+      // const events = []
       const sches = await this.getSches()
       console.log('sches→', sches)
 
-      const min = new Date(`${start.date}T00:00:00`)
-      const max = new Date(`${end.date}T23:59:59`)
-      const days = (max.getTime() - min.getTime()) / 86400000
-      const eventCount = this.rnd(days, days + 20)
+      // const min = new Date(`${start.date}T00:00:00`)
+      // const max = new Date(`${end.date}T23:59:59`)
+      // const days = (max.getTime() - min.getTime()) / 86400000
+      // const eventCount = this.rnd(days, days + 20)
 
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-        const second = new Date(first.getTime() + secondTimestamp)
+      // for (let i = 0; i < eventCount; i++) {
+      //   const allDay = this.rnd(0, 3) === 0
+      //   const firstTimestamp = this.rnd(min.getTime(), max.getTime())
+      //   const first = new Date(firstTimestamp - (firstTimestamp % 900000))
+      //   const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
+      //   const second = new Date(first.getTime() + secondTimestamp)
 
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          barColor: this.barColors[this.rnd(0, this.barColors.length - 1)],
-          timed: !allDay,
-        })
-      }
+      //   events.push({
+      //     name: this.names[this.rnd(0, this.names.length - 1)],
+      //     start: first,
+      //     end: second,
+      //     barColor: this.barColors[this.rnd(0, this.barColors.length - 1)],
+      //     timed: !allDay,
+      //   })
+      // }
       // this.events = events
       this.events = sches
+      this.startDateInfo = start
+      this.endDateInfo = end
     },
 
     rnd(a, b) {

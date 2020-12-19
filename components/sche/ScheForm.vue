@@ -308,7 +308,7 @@ export default {
           console.log('response data', response.object)
           alert('予定を追加しました')
           this.$refs.scheForm.reset()
-          this.$emit('init')
+          this.$emit('updateCalendar')
           this.closeForm()
         })
         .catch((error) => {
