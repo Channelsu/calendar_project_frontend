@@ -58,7 +58,15 @@
           @click:more="viewDay"
           @click:date="viewDay"
           @change="updateRange"
-        ></v-calendar>
+        >
+          <template v-slot:event="props">
+            <div class="pl-1">
+              <!-- {{ props.eventParsed.start.time }} - {{ props.eventParsed.end.time }} -->
+              {{ props.eventParsed.start.time | delFstZero }}
+              {{ props.event.name }}
+            </div>
+          </template>
+        </v-calendar>
         <v-menu
           v-model="selectedOpen"
           :close-on-content-click="false"
@@ -152,6 +160,14 @@ export default {
       ],
     }
   },
+  filters: {
+    delFstZero(time) {
+      if (time.slice(0, 1) === '0') {
+        time = time.slice(1)
+      }
+      return time
+    },
+  },
   computed: {
     yearMonth() {
       return this.fmtYearMonth(this.$refs.calendar.title)
@@ -169,11 +185,6 @@ export default {
       }
       this.updateRange(obj)
     },
-
-    // イベント名の時間「○○時」を「○○：○○」に変更する
-    // eventNameFmt() {
-
-    // },
 
     // バックエンドから予定のデータを取得し、フォーマットしてスケジュール配列を返すメソッド
     async getSches() {
