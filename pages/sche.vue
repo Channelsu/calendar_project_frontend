@@ -73,22 +73,20 @@
           :activator="selectedElement"
           offset-x
         >
-          <v-card color="grey lighten-4" min-width="350px" flat>
+          <v-card min-width="350px">
             <v-toolbar :color="selectedEvent.barColor" dark>
               <v-btn icon>
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-              <v-toolbar-title>{{ selectedEvent.name }}</v-toolbar-title>
+              <v-spacer></v-spacer>
+              <v-toolbar-title>予定詳細</v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
+                <v-icon>mdi-delete</v-icon>
               </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span>{{ selectedEvent.details }}</span>
+              <span>{{ selectedEvent.name }}</span>
             </v-card-text>
             <v-card-actions>
               <v-btn text color="secondary" @click="selectedOpen = false">
