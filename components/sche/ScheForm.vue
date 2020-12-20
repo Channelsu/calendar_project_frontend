@@ -19,7 +19,7 @@
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-container class="py-0">
-          <v-card-text>
+          <v-card-text class="pb-0">
             <!-- タイトル入力欄 -->
             <v-text-field
               v-model="scheForm.title"
@@ -189,7 +189,7 @@
             ></v-textarea>
             <!-- 備考入力欄 ここまで -->
           </v-card-text>
-          <v-card-actions>
+          <v-card-actions class="py-0">
             <v-row justify="center" class="mb-5">
               <v-btn
                 class="mr-2"
