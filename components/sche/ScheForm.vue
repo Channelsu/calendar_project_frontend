@@ -26,7 +26,7 @@
               :rules="[rules.required, rules.notOnlySpace]"
               :counter="64"
               label="タイトル"
-              @keydown.enter="trigger"
+              @keydown.enter="$blockEnterKey($event)"
             ></v-text-field>
             <!-- タイトル入力欄 ここまで -->
             <!-- 開始日入力欄  -->
@@ -46,7 +46,7 @@
                   append-icon="mdi-calendar"
                   v-bind="attrs"
                   v-on="on"
-                  @keydown.enter="trigger"
+                  @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-slot:append-outer>
                     <v-btn small @click="insToday('start')">今日</v-btn>
@@ -86,7 +86,7 @@
                   readonly
                   v-bind="attrs"
                   v-on="on"
-                  @keydown.enter="trigger"
+                  @keydown.enter="$blockEnterKey($event)"
                 ></v-text-field>
               </template>
               <v-time-picker
@@ -115,7 +115,7 @@
                   append-icon="mdi-calendar"
                   v-bind="attrs"
                   v-on="on"
-                  @keydown.enter="trigger"
+                  @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-slot:append-outer>
                     <v-btn small @click="insToday('end')">今日</v-btn>
@@ -155,7 +155,7 @@
                   readonly
                   v-bind="attrs"
                   v-on="on"
-                  @keydown.enter="trigger"
+                  @keydown.enter="$blockEnterKey($event)"
                 >
                 </v-text-field>
               </template>
@@ -265,13 +265,6 @@ export default {
     // },
   },
   methods: {
-    // 日本語入力中のEnterキー操作は無効にする
-    trigger: (e) => {
-      if (e.keyCode === 13) {
-        e.preventDefault()
-      }
-    },
-
     insToday(typeOfVar) {
       const today = new Date().toISOString().substr(0, 10)
       typeOfVar === 'start'
