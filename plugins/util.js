@@ -15,3 +15,10 @@ Vue.prototype.$fmtTime = (time) => {
     ? time.replace(/:/g, '')
     : `${time.substr(0, 2)}:${time.substr(2, 2)}`
 }
+
+// フォーム入力の際、エンターキーで送信されるのを防ぐ
+Vue.prototype.$blockEnterKey = (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault()
+  }
+}
