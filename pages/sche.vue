@@ -67,7 +67,7 @@
             </div>
           </template>
         </v-calendar>
-        <v-menu
+        <!-- <v-menu
           v-model="selectedOpen"
           :close-on-content-click="false"
           :activator="selectedElement"
@@ -79,7 +79,9 @@
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-toolbar-title>予定詳細</v-toolbar-title>
+              <v-toolbar-title class="font-weight-bold">
+                予定詳細
+              </v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon>
                 <v-icon>mdi-delete</v-icon>
@@ -94,7 +96,7 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-menu>
+        </v-menu> -->
         <!-- 追加フォーム -->
         <v-row justify="center">
           <ScheForm
@@ -105,6 +107,17 @@
           </ScheForm>
         </v-row>
         <!-- 追加フォーム ここまで -->
+        <!-- スケジュール詳細画面 -->
+        <v-row justify="center">
+          <ScheDetail
+            :sche-detail-open="selectedOpen"
+            :selected-event="selectedEvent"
+            @updateCalendar="updateCalendar()"
+            @closeForm="closeForm()"
+          >
+          </ScheDetail>
+        </v-row>
+        <!-- スケジュール詳細画面 ここまで -->
       </v-sheet>
     </v-col>
   </v-row>
@@ -112,6 +125,7 @@
 
 <script>
 import ScheForm from '~/components/sche/ScheForm.vue'
+import ScheDetail from '~/components/sche/ScheDetail.vue'
 
 export default {
   // ヘッダーの種類記述（指定がない時はlayouts/default.vueが適応される）
@@ -119,6 +133,7 @@ export default {
 
   component: {
     ScheForm,
+    ScheDetail,
   },
 
   data() {
