@@ -113,7 +113,7 @@
             :sche-detail-open="selectedOpen"
             :selected-event="selectedEvent"
             @updateCalendar="updateCalendar()"
-            @closeForm="closeForm()"
+            @closeDetail="closeForm()"
           >
           </ScheDetail>
         </v-row>
@@ -323,6 +323,7 @@ export default {
 
     closeForm() {
       this.formOpen = false
+      this.selectedOpen = false
     },
   },
 }
