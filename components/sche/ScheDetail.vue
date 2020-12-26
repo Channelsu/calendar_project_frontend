@@ -304,7 +304,7 @@ export default {
         end_date: fmtedEndDate,
         end_time: fmtedEndTime,
         bar_color: this.scheDetailForm.barColor,
-        remark: this.scheDetailForm.remark,
+        remarks: this.scheDetailForm.remarks,
       }
       const response = await this.$axios
         .$post('/sches/ins', postObj)
