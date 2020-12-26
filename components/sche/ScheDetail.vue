@@ -2,7 +2,7 @@
   <v-dialog
     v-model="scheDetailOpen"
     max-width="420"
-    @click:outside="closeDetail()"
+    @click:outside="changeMode(), closeDetail()"
   >
     <v-form
       ref="scheDetailForm"
@@ -12,11 +12,13 @@
     >
       <v-card>
         <v-toolbar :color="selectedEvent.barColor" dark>
-          <v-btn icon>
+          <v-btn icon @click="changeMode()">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
           <v-spacer></v-spacer>
-          <v-toolbar-title class="font-weight-bold">予定詳細</v-toolbar-title>
+          <v-toolbar-title class="font-weight-bold">
+            {{ title }}
+          </v-toolbar-title>
           <v-spacer></v-spacer>
           <v-btn icon>
             <v-icon>mdi-delete</v-icon>
@@ -30,7 +32,7 @@
               :rules="[rules.required, rules.notOnlySpace]"
               :counter="64"
               label="タイトル"
-              :readonly="readonly"
+              :readonly="settings.readonly"
               @keydown.enter="$blockEnterKey($event)"
             ></v-text-field>
             <!-- タイトル入力欄 ここまで -->
@@ -51,7 +53,7 @@
                   append-icon="mdi-calendar"
                   v-bind="attrs"
                   v-on="on"
-                  :readonly="readonly"
+                  :readonly="settings.readonly"
                   @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-slot:append-outer>
@@ -123,7 +125,7 @@
                   append-icon="mdi-calendar"
                   v-bind="attrs"
                   v-on="on"
-                  :readonly="readonly"
+                  :readonly="settings.readonly"
                   @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-slot:append-outer>
@@ -185,7 +187,7 @@
               item-text="label"
               item-value="val"
               label="バーの色"
-              :readonly="readonly"
+              :readonly="settings.readonly"
             >
             </v-select>
             <!-- スケジュールバーの色 ここまで -->
@@ -196,7 +198,7 @@
               auto-grow
               label="備考"
               rows="4"
-              :readonly="readonly"
+              :readonly="settings.readonly"
             ></v-textarea>
             <!-- 備考入力欄 ここまで -->
           </v-card-text>
@@ -247,8 +249,10 @@ export default {
 
   data() {
     return {
-      readonly: true,
-      settings: {},
+      editMode: false,
+      settings: {
+        readonly: true,
+      },
       colors: [
         { label: '赤', val: 'red' },
         { label: '青', val: 'blue' },
@@ -264,8 +268,15 @@ export default {
         return this.selectedEvent
       },
     },
+    title() {
+      return this.editMode === true ? '予定編集' : '予定詳細'
+    },
   },
   methods: {
+    changeMode() {
+      this.editMode = !this.editMode
+      this.settings.readonly = !this.settings.readonly
+    },
     insToday(typeOfVar) {
       const today = new Date().toISOString().substr(0, 10)
       typeOfVar === 'start'
