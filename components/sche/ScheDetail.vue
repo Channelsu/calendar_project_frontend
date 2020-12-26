@@ -66,11 +66,11 @@
                   :readonly="settings.readonly"
                   @keydown.enter="$blockEnterKey($event)"
                 >
-                  <template v-slot:append-outer>
+                  <template v-if="editMode" v-slot:append-outer>
                     <v-btn small @click="insToday('start')">今日</v-btn>
-                    <v-btn class="ml-2" small @click="insTomorrow('start')"
-                      >明日</v-btn
-                    >
+                    <v-btn class="ml-2" small @click="insTomorrow('start')">
+                      明日
+                    </v-btn>
                   </template>
                 </v-text-field>
               </template>
@@ -138,11 +138,11 @@
                   :readonly="settings.readonly"
                   @keydown.enter="$blockEnterKey($event)"
                 >
-                  <template v-slot:append-outer>
+                  <template v-if="editMode" v-slot:append-outer>
                     <v-btn small @click="insToday('end')">今日</v-btn>
-                    <v-btn class="ml-2" small @click="insTomorrow('end')"
-                      >明日</v-btn
-                    >
+                    <v-btn class="ml-2" small @click="insTomorrow('end')">
+                      明日
+                    </v-btn>
                   </template>
                 </v-text-field>
               </template>
@@ -218,6 +218,7 @@
                 class="mr-2"
                 color="blue white--text"
                 type="submit"
+                v-show="editMode"
                 :disabled="!scheDetailForm.valid"
                 @click="valiForm()"
               >
@@ -226,9 +227,10 @@
               <v-btn
                 class="ml-2"
                 color="error white--text"
+                v-show="editMode"
                 @click="closeDetail()"
               >
-                閉じる
+                中止
               </v-btn>
               <!-- フォーム入力エラーメッセージ -->
               <div class="text-center">
