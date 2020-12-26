@@ -181,7 +181,7 @@
             <!-- スケジュールバーの色 ここまで -->
             <!-- 備考入力欄 -->
             <v-textarea
-              v-model="scheForm.remark"
+              v-model="scheForm.remarks"
               :rules="[rules.notOnlySpace]"
               auto-grow
               label="備考"
@@ -248,7 +248,7 @@ export default {
         endTimeMenu: false,
         endTime: '',
         barColor: '',
-        remark: '',
+        remarks: '',
       },
       colors: [
         { label: '赤', val: 'red' },
@@ -303,7 +303,7 @@ export default {
         end_date: fmtedEndDate,
         end_time: fmtedEndTime,
         bar_color: this.scheForm.barColor,
-        remark: this.scheForm.remark,
+        remarks: this.scheForm.remarks,
       }
       const response = await this.$axios
         .$post('/sches/ins', postObj)
