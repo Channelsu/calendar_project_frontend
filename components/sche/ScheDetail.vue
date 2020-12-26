@@ -30,6 +30,7 @@
               :rules="[rules.required, rules.notOnlySpace]"
               :counter="64"
               label="タイトル"
+              :readonly="readonly"
               @keydown.enter="$blockEnterKey($event)"
             ></v-text-field>
             <!-- タイトル入力欄 ここまで -->
@@ -50,6 +51,7 @@
                   append-icon="mdi-calendar"
                   v-bind="attrs"
                   v-on="on"
+                  :readonly="readonly"
                   @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-slot:append-outer>
@@ -121,6 +123,7 @@
                   append-icon="mdi-calendar"
                   v-bind="attrs"
                   v-on="on"
+                  :readonly="readonly"
                   @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-slot:append-outer>
@@ -182,16 +185,18 @@
               item-text="label"
               item-value="val"
               label="バーの色"
+              :readonly="readonly"
             >
             </v-select>
             <!-- スケジュールバーの色 ここまで -->
             <!-- 備考入力欄 -->
             <v-textarea
-              v-model="scheDetailForm.remark"
+              v-model="scheDetailForm.remarks"
               :rules="[rules.notOnlySpace]"
               auto-grow
               label="備考"
               rows="4"
+              :readonly="readonly"
             ></v-textarea>
             <!-- 備考入力欄 ここまで -->
           </v-card-text>
@@ -222,8 +227,8 @@
                 >
               </div>
               <!-- フォーム入力エラーメッセージ ここまで -->
-              {{ scheDetailForm }}
-              {{ selectedEvent }}
+              <p>scheDetailForm➡︎{{ scheDetailForm }}</p>
+              <p>selectedEvent➡︎{{ selectedEvent }}</p>
             </v-row>
           </v-card-actions>
         </v-container>
@@ -242,21 +247,8 @@ export default {
 
   data() {
     return {
-      scheDetailForm: {
-        // フォームの項目に不備がないかの有効性を判断
-        valid: true,
-        title: '',
-        startDateMenu: false,
-        startDate: '',
-        startTimeMenu: false,
-        startTime: '',
-        endDateMenu: false,
-        endDate: '',
-        endTimeMenu: false,
-        endTime: '',
-        barColor: '',
-        remark: '',
-      },
+      readonly: true,
+      settings: {},
       colors: [
         { label: '赤', val: 'red' },
         { label: '青', val: 'blue' },
@@ -267,9 +259,11 @@ export default {
     }
   },
   computed: {
-    // formOpen() {
-    //   return this.formOpenBySche
-    // },
+    scheDetailForm: {
+      get() {
+        return this.selectedEvent
+      },
+    },
   },
   methods: {
     insToday(typeOfVar) {
