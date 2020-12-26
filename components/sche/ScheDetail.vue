@@ -12,17 +12,27 @@
     >
       <v-card>
         <v-toolbar :color="selectedEvent.barColor" dark>
-          <v-btn icon @click="changeMode()">
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
+          <v-tooltip open-delay="1000" bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn v-bind="attrs" v-on="on" icon @click="changeMode()">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </template>
+            <span>{{ editTooltipText }}</span>
+          </v-tooltip>
           <v-spacer></v-spacer>
           <v-toolbar-title class="font-weight-bold">
             {{ title }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn icon :disabled="editMode">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
+          <v-tooltip open-delay="1000" bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on" :disabled="editMode">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+            </template>
+            <span>削除</span>
+          </v-tooltip>
         </v-toolbar>
         <v-container class="py-0">
           <v-card-text class="pb-0">
@@ -268,8 +278,11 @@ export default {
         return this.selectedEvent
       },
     },
+    editTooltipText() {
+      return this.editMode ? '編集中止' : '編集'
+    },
     title() {
-      return this.editMode === true ? '予定編集' : '予定詳細'
+      return this.editMode ? '予定編集' : '予定詳細'
     },
   },
   methods: {
