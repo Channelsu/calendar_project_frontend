@@ -67,36 +67,6 @@
             </div>
           </template>
         </v-calendar>
-        <!-- <v-menu
-          v-model="selectedOpen"
-          :close-on-content-click="false"
-          :activator="selectedElement"
-          offset-x
-        >
-          <v-card min-width="350px">
-            <v-toolbar :color="selectedEvent.barColor" dark>
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-toolbar-title class="font-weight-bold">
-                予定詳細
-              </v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <v-card-text>
-              <span>{{ selectedEvent.name }}</span>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn text color="secondary" @click="selectedOpen = false">
-                Cancel
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-menu> -->
         <!-- 追加フォーム -->
         <v-row justify="center">
           <ScheForm
