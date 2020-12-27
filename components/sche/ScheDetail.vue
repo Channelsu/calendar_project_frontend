@@ -14,7 +14,7 @@
         <v-toolbar :color="selectedEvent.barColor" dark>
           <v-tooltip open-delay="1000" bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" icon @click="changeMode">
+              <v-btn v-bind="attrs" icon v-on="on" @click="changeMode">
                 <v-icon>{{ icon }}</v-icon>
               </v-btn>
             </template>
@@ -27,7 +27,13 @@
           <v-spacer></v-spacer>
           <v-tooltip open-delay="1000" bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" :disabled="editMode">
+              <v-btn
+                icon
+                v-bind="attrs"
+                :disabled="editMode"
+                v-on="on"
+                @click="deleteSche()"
+              >
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </template>
@@ -63,8 +69,8 @@
                   label="開始日"
                   append-icon="mdi-calendar"
                   v-bind="attrs"
-                  v-on="on"
                   :readonly="settings.readonly"
+                  v-on="on"
                   @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-if="editMode" v-slot:append-outer>
@@ -137,8 +143,8 @@
                   label="終了日"
                   append-icon="mdi-calendar"
                   v-bind="attrs"
-                  v-on="on"
                   :readonly="settings.readonly"
+                  v-on="on"
                   @keydown.enter="$blockEnterKey($event)"
                 >
                   <template v-if="editMode" v-slot:append-outer>
@@ -219,19 +225,19 @@
           <v-card-actions class="py-0">
             <v-row justify="center" class="mb-5">
               <v-btn
+                v-show="editMode"
                 class="mr-2"
                 color="blue white--text"
                 type="submit"
-                v-show="editMode"
                 :disabled="!scheDetailForm.valid"
                 @click="valiForm()"
               >
                 登録
               </v-btn>
               <v-btn
+                v-show="editMode"
                 class="ml-2"
                 color="error white--text"
-                v-show="editMode"
                 @click="closeDetail()"
               >
                 中止
@@ -359,6 +365,15 @@ export default {
           console.log('response error', error)
         })
       console.log('response→', response)
+    },
+
+    // スケジュール削除処理
+    deleteSche() {
+      const agreement = confirm('このスケジュールを削除しますか？')
+      if (!agreement) {
+        return
+      }
+      alert('スケジュールを削除しました')
     },
 
     // フォームを閉じる処理
