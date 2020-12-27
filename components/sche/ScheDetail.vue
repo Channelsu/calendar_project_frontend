@@ -2,7 +2,7 @@
   <v-dialog
     v-model="scheDetailOpen"
     max-width="420"
-    @click:outside="changeMode(), closeDetail()"
+    @click:outside="changeRefMode(), closeDetail()"
   >
     <v-form
       ref="scheDetailForm"
@@ -14,8 +14,8 @@
         <v-toolbar :color="selectedEvent.barColor" dark>
           <v-tooltip open-delay="1000" bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" icon @click="changeMode()">
-                <v-icon>mdi-pencil</v-icon>
+              <v-btn v-bind="attrs" v-on="on" icon @click="changeMode">
+                <v-icon>{{ icon }}</v-icon>
               </v-btn>
             </template>
             <span>{{ editTooltipText }}</span>
@@ -49,6 +49,7 @@
             <!-- 開始日入力欄  -->
             <v-menu
               v-model="scheDetailForm.startDateMenu"
+              :disabled="!editMode"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
@@ -280,17 +281,27 @@ export default {
         return this.selectedEvent
       },
     },
+    icon() {
+      return this.editMode ? 'mdi-arrow-left' : 'mdi-pencil'
+    },
+    changeMode() {
+      return this.editMode ? this.changeRefMode : this.changeEditMode
+    },
     editTooltipText() {
-      return this.editMode ? '編集中止' : '編集'
+      return this.editMode ? '戻る' : '編集'
     },
     title() {
       return this.editMode ? '予定編集' : '予定詳細'
     },
   },
   methods: {
-    changeMode() {
-      this.editMode = !this.editMode
-      this.settings.readonly = !this.settings.readonly
+    changeEditMode() {
+      this.editMode = true
+      this.settings.readonly = false
+    },
+    changeRefMode() {
+      this.editMode = false
+      this.settings.readonly = true
     },
     insToday(typeOfVar) {
       const today = new Date().toISOString().substr(0, 10)
