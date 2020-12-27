@@ -88,6 +88,7 @@
             <v-menu
               ref="startTimeMenu"
               v-model="scheDetailForm.startTimeMenu"
+              :disabled="!editMode"
               :close-on-content-click="false"
               :nudge-right="40"
               :return-value.sync="scheDetailForm.startTime"
@@ -122,6 +123,7 @@
             <!-- 終了日入力欄  -->
             <v-menu
               v-model="scheDetailForm.endDateMenu"
+              :disabled="!editMode"
               :close-on-content-click="false"
               :nudge-right="40"
               transition="scale-transition"
@@ -160,6 +162,7 @@
             <v-menu
               ref="endTimeMenu"
               v-model="scheDetailForm.endTimeMenu"
+              :disabled="!editMode"
               :close-on-content-click="false"
               :nudge-right="40"
               :return-value.sync="scheDetailForm.endTime"
