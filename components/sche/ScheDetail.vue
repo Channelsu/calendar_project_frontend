@@ -368,12 +368,28 @@ export default {
     },
 
     // スケジュール削除処理
-    deleteSche() {
-      const agreement = confirm('このスケジュールを削除しますか？')
+    async deleteSche() {
+      const agreement = confirm('この予定を削除しますか？')
       if (!agreement) {
         return
       }
-      alert('スケジュールを削除しました')
+      const postObj = {
+        id: this.scheDetailForm.id,
+      }
+      // ポスト処理
+      const response = await this.$axios
+        .$post('/sches/del', postObj)
+        .then((response) => {
+          console.log('response data', response.object)
+          alert('予定を削除しました')
+          // this.$refs.scheDetailForm.reset()
+          this.$emit('updateCalendar')
+          this.closeDetail()
+        })
+        .catch((error) => {
+          console.log('response error', error)
+        })
+      console.log('response→', response)
     },
 
     // フォームを閉じる処理
