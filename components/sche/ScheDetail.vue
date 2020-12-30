@@ -370,6 +370,7 @@ export default {
     // スケジュール削除処理
     async deleteSche() {
       const agreement = confirm('この予定を削除しますか？')
+      // 「キャンセル」を選択した場合は何も処理しない
       if (!agreement) {
         return
       }
@@ -380,8 +381,7 @@ export default {
       const response = await this.$axios
         .$post('/sches/del', postObj)
         .then((response) => {
-          console.log('response data', response.object)
-          alert('予定を削除しました')
+          console.log('response object', response.object)
           // this.$refs.scheDetailForm.reset()
           this.$emit('updateCalendar')
           this.closeDetail()
