@@ -238,7 +238,7 @@
                 v-show="editMode"
                 class="ml-2"
                 color="error white--text"
-                @click="closeDetail()"
+                @click="changeRefMode()"
               >
                 中止
               </v-btn>
@@ -253,6 +253,7 @@
               <!-- フォーム入力エラーメッセージ ここまで -->
               <p>scheDetailForm➡︎{{ scheDetailForm }}</p>
               <p>selectedEvent➡︎{{ selectedEvent }}</p>
+              <p>tmpData➡︎{{ tmpData }}</p>
             </v-row>
           </v-card-actions>
         </v-container>
@@ -282,6 +283,7 @@ export default {
         { label: '紫', val: 'purple' },
         { label: 'ピンク', val: 'pink' },
       ],
+      tmpData: {},
     }
   },
   computed: {
@@ -307,10 +309,17 @@ export default {
     changeEditMode() {
       this.editMode = true
       this.settings.readonly = false
+      // 値渡し(ディープコピー)する
+      // Object.assignとスプレッド構文はほぼ同じ。プロパティに配列やオブジェクトがあるとそこだけ参照渡しになるので注意
+      // 値渡しにしたい場合はプロパティを一つずつ書けば良い。だがプロパティが増えれば記述量が増えるのが問題
+      // this.tmpData.title = this.scheDetailForm.title
+      // this.tmpData.startDate = this.scheDetailForm.startDate
+      this.tmpData = Object.assign({}, this.scheDetailForm)
     },
     changeRefMode() {
       this.editMode = false
       this.settings.readonly = true
+      this.scheDetailForm = Object.assign(this.scheDetailForm, this.tmpData)
     },
     insToday(typeOfVar) {
       const today = new Date().toISOString().substr(0, 10)
