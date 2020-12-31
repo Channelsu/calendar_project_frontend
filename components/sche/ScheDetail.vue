@@ -353,6 +353,7 @@ export default {
       const fmtedEndTime = this.$fmtTime(this.scheDetailForm.endTime)
       // ポストするオブジェクトの作成
       const postObj = {
+        id: this.scheDetailForm.id,
         title: this.scheDetailForm.title,
         start_date: fmtedStartDate,
         start_time: fmtedStartTime,
@@ -362,10 +363,10 @@ export default {
         remarks: this.scheDetailForm.remarks,
       }
       const response = await this.$axios
-        .$post('/sches/ins', postObj)
+        .$post('/sches/upd', postObj)
         .then((response) => {
           console.log('response data', response.object)
-          alert('予定を追加しました')
+          alert('予定を編集しました')
           this.$refs.scheDetailForm.reset()
           this.$emit('updateCalendar')
           this.closeDetail()
