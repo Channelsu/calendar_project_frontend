@@ -251,9 +251,9 @@
                 >
               </div>
               <!-- フォーム入力エラーメッセージ ここまで -->
-              <p>scheDetailForm➡︎{{ scheDetailForm }}</p>
+              <!-- <p>scheDetailForm➡︎{{ scheDetailForm }}</p>
               <p>selectedEvent➡︎{{ selectedEvent }}</p>
-              <p>tmpData➡︎{{ tmpData }}</p>
+              <p>tmpData➡︎{{ tmpData }}</p> -->
             </v-row>
           </v-card-actions>
         </v-container>
