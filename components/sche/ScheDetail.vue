@@ -367,6 +367,7 @@ export default {
         .then((response) => {
           console.log('response data', response.object)
           alert('予定を編集しました')
+          this.changeRefMode()
           this.$refs.scheDetailForm.reset()
           this.$emit('updateCalendar')
           this.closeDetail()
