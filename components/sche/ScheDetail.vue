@@ -6,7 +6,7 @@
   >
     <v-form
       ref="scheDetailForm"
-      v-model="scheDetailForm.valid"
+      v-model="settings.valid"
       lazy-validation
       @submit.prevent="postForm()"
     >
@@ -229,7 +229,7 @@
                 class="mr-2"
                 color="blue white--text"
                 type="submit"
-                :disabled="!scheDetailForm.valid"
+                :disabled="!settings.valid"
                 @click="valiForm()"
               >
                 登録
@@ -245,14 +245,13 @@
               <!-- フォーム入力エラーメッセージ -->
               <div class="text-center">
                 <span
-                  v-show="!scheDetailForm.valid"
+                  v-show="!settings.valid"
                   class="red--text subtitle-1 font-weight-bold"
                   >※入力に不備があるので確認して下さい</span
                 >
               </div>
               <!-- フォーム入力エラーメッセージ ここまで -->
               <!-- <p>scheDetailForm➡︎{{ scheDetailForm }}</p>
-              <p>selectedEvent➡︎{{ selectedEvent }}</p>
               <p>tmpData➡︎{{ tmpData }}</p> -->
             </v-row>
           </v-card-actions>
@@ -275,6 +274,7 @@ export default {
       editMode: false,
       settings: {
         readonly: true,
+        valid: true,
       },
       colors: [
         { label: '赤', val: 'red' },
