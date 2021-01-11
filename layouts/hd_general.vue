@@ -60,6 +60,11 @@ export default {
           to: '/settings',
         },
         {
+          icon: 'mdi-account-cog',
+          title: '管理画面',
+          to: '/management',
+        },
+        {
           icon: 'mdi-logout',
           title: 'ログアウト',
           to: '/',
