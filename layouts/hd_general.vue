@@ -23,7 +23,7 @@
       <v-spacer />
       <v-toolbar-title class="title">{{ title }}</v-toolbar-title>
       <v-spacer />
-      <v-btn outlined>管理画面</v-btn>
+      <v-btn icon disabled></v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
