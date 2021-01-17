@@ -8,9 +8,10 @@
             ログイン
           </v-card-title>
           <v-card-text>
-            <v-form v-model="valid" @submit.prevent="toSche">
+            <!-- <v-form v-model="valid" @submit.prevent="toSche"> -->
+            <v-form v-model="valid" @submit.prevent="loginUser">
               <v-text-field
-                v-model="user.userID"
+                v-model="user.id"
                 maxlength="10"
                 counter
                 label="ユーザーID"
@@ -65,7 +66,7 @@ export default {
     return {
       error: null,
       user: {
-        userID: '',
+        id: '',
         password: '',
       },
       showPassword: false,
@@ -78,6 +79,11 @@ export default {
   methods: {
     toSche() {
       this.$router.push('/sche')
+    },
+    loginUser() {
+      this.$auth.loginWith('local', {
+        data: this.user,
+      })
     },
     cancel() {
       this.$router.replace('/')
