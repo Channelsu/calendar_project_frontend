@@ -69,6 +69,11 @@ export default {
           title: 'ログアウト',
           to: '/',
         },
+        {
+          icon: 'mdi-logout',
+          title: 'その他',
+          to: '/others',
+        },
       ],
       right: true,
       title: 'シェアスケジュール',
