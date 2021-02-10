@@ -1,12 +1,22 @@
 <template>
-  <section class="recipes">
-    <article class="recipe">
-      <div></div>
+  <section class="cards">
+    <article class="card">
+      <div
+        class="thumbnail"
+        style="
+          background-image: url('https://thumb.photo-ac.com/c3/c38945f7f63294b4c0f127cab5ed4141_t.jpeg');
+        "
+      ></div>
       <h1>h1</h1>
       <p>p</p>
     </article>
-    <article class="recipe">
-      <div></div>
+    <article class="card">
+      <div
+        class="thumbnail"
+        style="
+          background-image: url('https://thumb.photo-ac.com/e3/e311ea8b9bd8c4520975e7500c3221ce_t.jpeg');
+        "
+      ></div>
       <h1>h1</h1>
       <p>p</p>
     </article>
@@ -28,13 +38,24 @@ export default {
 </script>
 
 <style scoped>
-/* .recipes {} */
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+}
 
-.recipe {
+.card {
   box-sizing: border-box;
   width: 280px;
   padding: 8px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 2px #aaa;
+  margin: 10px;
+}
+
+.thumbnail {
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 200px;
 }
 </style>
