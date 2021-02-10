@@ -1,12 +1,18 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12">
-      <p>その他</p>
-      <p>YouTubeに似せたもの</p>
-      <p>賃貸・物件検索サイト</p>
-      <p>Nuxtのコンポーネントで作成してみる</p>
-    </v-col>
-  </v-row>
+  <section class="recipes">
+    <article class="recipe">
+      <div></div>
+      <h1>h1</h1>
+      <p>p</p>
+    </article>
+    <article class="recipe">
+      <div></div>
+      <h1>h1</h1>
+      <p>p</p>
+    </article>
+  </section>
+  <!-- <p>YouTubeに似せたもの</p>
+  <p>賃貸・物件検索サイト</p> -->
 </template>
 
 <script>
@@ -20,3 +26,15 @@ export default {
   methods: {},
 }
 </script>
+
+<style scoped>
+/* .recipes {} */
+
+.recipe {
+  box-sizing: border-box;
+  width: 280px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 2px #aaa;
+}
+</style>
