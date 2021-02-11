@@ -1,25 +1,26 @@
 <template>
   <section class="cards">
-    <Card
+    <!-- <Card
+      id="3"
       thumbnail="https://thumb.photo-ac.com/c3/c38945f7f63294b4c0f127cab5ed4141_t.jpeg"
       title="タイトル"
       previewText="プレテキスト"
     />
     <Card
+      id="4"
       thumbnail="https://thumb.photo-ac.com/e3/e311ea8b9bd8c4520975e7500c3221ce_t.jpeg"
       title="タイトル2"
       previewText="プレテキスト2"
-    />
+    /> -->
     <Card
       v-for="item in items"
-      :key="item.title"
+      :key="item.id"
+      :id="item.id"
       :thumbnail="item.thumbnail"
       :title="item.title"
       :previewText="item.previewText"
     />
   </section>
-  <!-- <p>YouTubeに似せたもの</p>
-  <p>賃貸・物件検索サイト</p> -->
 </template>
 
 <script>
@@ -33,16 +34,20 @@ export default {
     Card,
   },
 
+  asyncData() {},
+
   data() {
     return {
       items: [
         {
+          id: 1,
           thumbnail:
             'https://thumb.photo-ac.com/c3/c38945f7f63294b4c0f127cab5ed4141_t.jpeg',
           title: 'タイトル',
           previewText: 'プレテキスト',
         },
         {
+          id: 2,
           thumbnail:
             'https://thumb.photo-ac.com/e3/e311ea8b9bd8c4520975e7500c3221ce_t.jpeg',
           title: 'タイトル2',

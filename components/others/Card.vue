@@ -1,21 +1,28 @@
 <template>
-  <article class="card">
-    <div
-      class="thumbnail"
-      :style="{ backgroundImage: 'url(' + thumbnail + ')' }"
-    ></div>
-    <h1>{{ title }}</h1>
-    <p>{{ previewText }}</p>
-  </article>
+  <nuxt-link :to="'/others/' + id">
+    <article class="card">
+      <div
+        class="thumbnail"
+        :style="{ backgroundImage: 'url(' + thumbnail + ')' }"
+      ></div>
+      <h1>{{ title }}</h1>
+      <p>{{ previewText }}</p>
+    </article>
+  </nuxt-link>
 </template>
 
 <script>
 export default {
-  props: { thumbnail: String, title: String, previewText: String },
+  props: { thumbnail: String, title: String, previewText: String, id: Number },
 }
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .card {
   box-sizing: border-box;
   width: 280px;
