@@ -1,17 +1,5 @@
 <template>
   <section class="cards">
-    <!-- <Card
-      id="3"
-      thumbnail="https://thumb.photo-ac.com/c3/c38945f7f63294b4c0f127cab5ed4141_t.jpeg"
-      title="タイトル"
-      previewText="プレテキスト"
-    />
-    <Card
-      id="4"
-      thumbnail="https://thumb.photo-ac.com/e3/e311ea8b9bd8c4520975e7500c3221ce_t.jpeg"
-      title="タイトル2"
-      previewText="プレテキスト2"
-    /> -->
     <Card
       v-for="item in items"
       :key="item.id"
@@ -33,8 +21,6 @@ export default {
   component: {
     Card,
   },
-
-  asyncData() {},
 
   data() {
     return {
